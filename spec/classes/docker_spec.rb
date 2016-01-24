@@ -84,6 +84,11 @@ describe 'docker', :type => :class do
           it { should contain_file('/etc/default/docker.io') }
         end
 
+        context 'when not managing the repository' do
+          let(:params) { {'manage_repo' => false } }
+          it { should_not contain_apt_source('docker') }
+        end
+
       end
 
       if osfamily == 'RedHat'
@@ -156,6 +161,11 @@ describe 'docker', :type => :class do
               'install_options' => '--enablerepo=rhel7-extras'
             )
           end
+        end
+
+        context 'when not managing the repository' do
+          let(:params) { {'manage_repo' => false } }
+          it { should_not contain_yumrepo('docker') }
         end
 
       end

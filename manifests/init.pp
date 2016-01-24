@@ -189,6 +189,10 @@
 #   Won't install or define the docker package, useful if you want to use your own package
 #   Defaults to true
 #
+# [*manage_repo*]
+#   Useful if you want to configure repositories by yourself
+#   Defaults to true
+#
 # [*package_name*]
 #   Specify custom package name
 #   Default is set on a per system basis in docker::params
@@ -279,6 +283,7 @@ class docker(
   $dm_override_udev_sync_check       = $docker::params::dm_override_udev_sync_check,
   $execdriver                        = $docker::params::execdriver,
   $manage_package                    = $docker::params::manage_package,
+  $manage_repo                       = $docker::params::manage_repo,
   $package_source                    = $docker::params::package_source,
   $manage_epel                       = $docker::params::manage_epel,
   $package_name                      = $docker::params::package_name,
@@ -310,6 +315,7 @@ class docker(
   validate_re($::osfamily, '^(Debian|RedHat|Archlinux)$', 'This module only works on Debian and Red Hat based systems.')
   validate_bool($manage_kernel)
   validate_bool($manage_package)
+  validate_bool($manage_repo)
   validate_array($docker_users)
   validate_array($log_opt)
 
